@@ -40,4 +40,31 @@ public class EnderecoDao {
             JOptionPane.showMessageDialog(null, "Erro!");
         }
     }
+       public static boolean alterar(Endereco objeto) {
+        String sql = "UPDATE Endereco SET logradouro = ?, complemento = ?, bairro = ? WHERE codigo=?";
+        try {
+            PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, objeto.getLogradouro()); 
+            ps.setString(2, objeto.getComplemento());
+            ps.setString(3, objeto.getBairro());
+            ps.setInt(4, objeto.getCodigo());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+         public static boolean excluir(Endereco objeto) {
+        String sql = "DELETE FROM Endereco WHERE codigo=?";
+        try {
+            PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, objeto.getCodigo());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
 }
